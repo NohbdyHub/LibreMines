@@ -105,9 +105,11 @@ LibreMinesGui::LibreMinesGui(QWidget *parent, const int thatWidth, const int tha
     facesReac.vSetFacesReactionTheme(preferences->optionFacesReaction(), 0);
 
     // Necessary for some reason
+    /*
     QTimer::singleShot(100, [this]()
     { vSetApplicationTheme(preferences->optionApplicationStyle()); });
-
+     */
+    
     bMinefieldBeingCreated = false;
 
     connect(this, &LibreMinesGui::SIGNAL_setSoundEffectVolume,
