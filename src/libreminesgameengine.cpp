@@ -612,10 +612,9 @@ void LibreMinesGameEngine::SLOT_startTimer()
 }
 
 void LibreMinesGameEngine::SLOT_cleanNeighborCells(const uchar _X, const uchar _Y)
-{
-
-    bool recursive = false;
-    // Clean all hided and unflaged neighbor flags
+{    
+    // Get all neighboring cells
+    std::vector<std::pair<short, short>> neighbors;
     for(short i=_X-1; i<=_X+1; i++)
     {
         if(i<0 || i>=iX)
@@ -626,15 +625,36 @@ void LibreMinesGameEngine::SLOT_cleanNeighborCells(const uchar _X, const uchar _
             if(j<0 || j>=iY)
                 continue;
 
-            const CellGameEngine& cell = principalMatrix[i][j];
+            neighbors.emplace_back(i, j);
+        }
+    }
 
-            if(cell.isHidden && cell.flagState == FlagState::NoFlag)
-            {
-                if(!bCleanCell(i, j, recursive))
-                    return;
+    // Check if enough flags are placed in neighbors
+    const auto value = static_cast<qint8>(principalMatrix[_X][_Y].value);
+    qint8 flagCount = 0;
+    for (auto [i, j] : neighbors)
+    {
+        const CellGameEngine& cell = principalMatrix[i][j];
+        flagCount += cell.flagState == FlagState::HasFlag;
+    }
 
-                recursive = true;
-            }
+    // Don't clean neighbors if not enough flags are placed
+    if (flagCount < value)
+    {
+        return;
+    }
+    
+    // Clean all neighbor cells
+    bool recursive = false;
+    for (auto [i, j] : neighbors)
+    {
+        const CellGameEngine& cell = principalMatrix[i][j];
+        if(cell.isHidden && cell.flagState == FlagState::NoFlag)
+        {
+            if(!bCleanCell(i, j, recursive))
+                return;
+
+            recursive = true;
         }
     }
 }
