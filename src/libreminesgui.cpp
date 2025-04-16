@@ -42,6 +42,7 @@
 #include "libreminesviewscoresdialog.h"
 #include "libreminesapptheme.h"
 #include "libreminespreferencessaver.h"
+#include <iostream>
 
 LibreMinesGui::CellGui::CellGui():
     button(nullptr),
@@ -203,6 +204,7 @@ void LibreMinesGui::vNewGame(const uchar _X,
 
     gameEngine->setFirstCellClean(preferences->optionFirstCellClean());
     gameEngine->setUseQuestionMark(preferences->optionUseQuestionMark());
+    gameEngine->setUseNeighborProtection(preferences->optionUseNeighborProtection());
     gameEngine->vNewGame(_X, _Y, i_nMines_);
 
     // Set the length of each cell
@@ -1493,6 +1495,7 @@ void LibreMinesGui::SLOT_optionChanged(const QString &name, const QString &value
     {
        fieldTheme.vSetMinefieldTheme(value, cellLength);
     }
+    std::cout << name.toStdString() << std::endl;
 }
 
 void LibreMinesGui::SLOT_quitApplication()

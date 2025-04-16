@@ -79,6 +79,12 @@ LibreMinesPreferencesDialog::LibreMinesPreferencesDialog(QWidget *parent) :
         Q_EMIT SIGNAL_optionChanged("MinefieldTheme", text);
     });
 
+    connect(ui->cbCleanNeighborCellsWhenClickedOnShowedCell, &QCheckBox::stateChanged, 
+        this, [this](int state) 
+    {
+        ui->cbUseNeighborProtection->setHidden(!state);
+    });
+
     connect(ui->sbMinimumCellLength, QOverload<int>::of(&QSpinBox::valueChanged),
             this, &LibreMinesPreferencesDialog::SLOT_updateCellLengthParameters);
     connect(ui->sbMaximumCellLength, QOverload<int>::of(&QSpinBox::valueChanged),
@@ -201,6 +207,11 @@ bool LibreMinesPreferencesDialog::optionUseQuestionMark() const
     return ui->cbUseQuestionMark->isChecked();
 }
 
+bool LibreMinesPreferencesDialog::optionUseNeighborProtection() const
+{
+    return ui->cbUseNeighborProtection->isChecked();
+}
+
 void LibreMinesPreferencesDialog::setOptionFirstCellClean(const QString &option)
 {
     ui->cbFirstCellClean->setChecked(option.compare("On", Qt::CaseInsensitive) == 0);
@@ -209,6 +220,11 @@ void LibreMinesPreferencesDialog::setOptionFirstCellClean(const QString &option)
 void LibreMinesPreferencesDialog::setOptionCleanNeighborCellsWhenClickedOnShowedCell(const QString &option)
 {
     ui->cbCleanNeighborCellsWhenClickedOnShowedCell->setChecked(option.compare("On", Qt::CaseInsensitive) == 0);
+}
+
+void LibreMinesPreferencesDialog::setOptionUseNeighborProtection(const QString &option)
+{
+    ui->cbUseNeighborProtection->setChecked(option.compare("On", Qt::CaseInsensitive) == 0);
 }
 
 void LibreMinesPreferencesDialog::setOptionProgressBar(const QString &option)

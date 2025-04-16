@@ -61,6 +61,7 @@ public:
 
     void setFirstCellClean(const bool x);
     void setUseQuestionMark(const bool x);
+    void setUseNeighborProtection(const bool x);
 
 private:
     void vResetPrincipalMatrix();
@@ -95,6 +96,8 @@ private:
     bool bFirstCellClean; /**< TODO: describe */
 
     bool bUseQuestionMark;
+
+    bool bUseNeighborProtection;
 
     bool bGameActive;
 

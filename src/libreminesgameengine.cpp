@@ -541,6 +541,10 @@ void LibreMinesGameEngine::setUseQuestionMark(const bool x)
     bUseQuestionMark = x;
 }
 
+void LibreMinesGameEngine::setUseNeighborProtection(const bool x)
+{
+    bUseNeighborProtection = x;
+}
 
 void LibreMinesGameEngine::SLOT_cleanCell(const uchar _X, const uchar _Y)
 {
@@ -629,20 +633,23 @@ void LibreMinesGameEngine::SLOT_cleanNeighborCells(const uchar _X, const uchar _
         }
     }
 
-    // Check if enough flags are placed in neighbors
-    const auto value = static_cast<qint8>(principalMatrix[_X][_Y].value);
-    qint8 flagCount = 0;
-    for (auto [i, j] : neighbors)
+    if (bUseNeighborProtection)
     {
-        const CellGameEngine& cell = principalMatrix[i][j];
-        flagCount += cell.flagState == FlagState::HasFlag;
-    }
+        // Check if enough flags are placed in neighbors
+        const auto value = static_cast<qint8>(principalMatrix[_X][_Y].value);
+        qint8 flagCount = 0;
+        for (auto [i, j] : neighbors)
+        {
+            const CellGameEngine& cell = principalMatrix[i][j];
+            flagCount += cell.flagState == FlagState::HasFlag;
+        }
 
-    // Don't clean neighbors if not enough flags are placed
-    if (flagCount < value)
-    {
-        return;
-    }
+        // Don't clean neighbors if not enough flags are placed
+        if (flagCount < value)
+        {
+            return;
+        }
+    }   
     
     // Clean all neighbor cells
     bool recursive = false;

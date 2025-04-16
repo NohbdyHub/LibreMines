@@ -43,6 +43,14 @@ void LibreMinesPreferencesSaver::vLastSessionLoadConfigurationFile(
 
                 preferences.setOptionApplicationStyle(terms.at(1));
             }
+            else if(terms.at(0).compare("UseNeighborProtection", 
+                Qt::CaseInsensitive) == 0)
+            {
+                if(terms.size() != 2)
+                    continue;
+
+                preferences.setOptionUseNeighborProtection(terms.at(1));
+            }
             else if(terms.at(0).compare("ClearNeighborCellsWhenClickedOnShowedCell",
                                         Qt::CaseInsensitive) == 0)
             {
@@ -222,6 +230,8 @@ void LibreMinesPreferencesSaver::vLastSessionSaveConfigurationFile(
                << "ApplicationStyle" << ' ' << preferences.optionApplicationStyle() << '\n'
                << "ClearNeighborCellsWhenClickedOnShowedCell" << ' '
                << (preferences.optionCleanNeighborCellsWhenClickedOnShowedCell() ? "On" : "Off") << '\n'
+               << "UseNeighborProtection" << ' '
+               << (preferences.optionUseNeighborProtection() ? "On" : "Off") << '\n'
                << "Username" << ' ' << preferences.optionUsername() << '\n'
                << "CustomizedPercentageOfMines" << ' '
                << sbCustomizedPercentageMines.value() << '\n'

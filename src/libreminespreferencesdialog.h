@@ -81,9 +81,11 @@ public:
     AskToSaveMatchScore optionAskToSaveMatchScoreBehaviour()const;
     int optionSoundVolume()const;
     bool optionUseQuestionMark()const;
+    bool optionUseNeighborProtection()const;
 
     void setOptionFirstCellClean(const QString& option);
     void setOptionCleanNeighborCellsWhenClickedOnShowedCell(const QString& option);
+    void setOptionUseNeighborProtection(const QString& option);
     void setOptionProgressBar(const QString& option);
     void setOptionApplicationStyle(const QString& option);
     void setOptionMinefieldTheme(const QString& option);

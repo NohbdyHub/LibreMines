@@ -42,6 +42,16 @@ clicked on showed cell</string>
        </widget>
       </item>
       <item>
+       <widget class="QCheckBox" name="cbUseNeighborProtection">
+        <property name="text">
+         <string>Only clean neighbor cells if enough flags are placed</string>
+        </property>
+        <property name="checked">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item>
        <widget class="QCheckBox" name="cbProgressBarInGame">
         <property name="text">
          <string>Show progress bar</string>
