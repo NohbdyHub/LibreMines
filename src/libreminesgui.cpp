@@ -1495,7 +1495,6 @@ void LibreMinesGui::SLOT_optionChanged(const QString &name, const QString &value
     {
        fieldTheme.vSetMinefieldTheme(value, cellLength);
     }
-    std::cout << name.toStdString() << std::endl;
 }
 
 void LibreMinesGui::SLOT_quitApplication()
